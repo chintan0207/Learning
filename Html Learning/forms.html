@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <form method="POST" action="api/login">
+        <label for="mail">Email: </label>
+        <input type="email" id="mail" name="mail">
+        <br/>
+        <label for="pw">Password: </label>
+        <input type="password" id="pw" name="pw">
+        <br/>
+        <input type="submit" value="Login">
+        <br/>
+        <input type="checkbox" id="ck" name="ck">
+        <label for="ck">Remember me</label>
+      </form>
+      
+      <hr>
+      <!-- Nested label -->
+<label>Click me 
+    <input type="text" id="user" name="name"/>
+    </label>
+    
+    <textarea rows="2" cols="30" name="address" id="address"></textarea>
+<hr>
+
+<input type="radio" name="gender" id="m">
+<label for="m">Male</label>
+<input type="radio" name="gender" id="f">
+<label for="f">Female</label>
+<hr>
+<input type="checkbox" name="s" id="soc">
+<label for="soc">Soccer</label>
+<input type="checkbox" name="s" id="bas">
+<label for="bas">Baseball</label>
+<br>
+
+<label for="b">Choose a browser: </label>
+<input list="list" id="b" name="browser"/>
+<datalist id="list">
+  <option value="Chrome">
+  <option value="Firefox">
+  <option value="Internet Explorer">
+  <option value="Opera">
+  <option value="Safari">
+  <option value="Microsoft Edge">
+</datalist>
+
+<hr>
+<fieldset>
+    <legend>Your favorite monster</legend>
+    <input type="radio" id="kra" name="m">
+    <label for="kraken">Kraken</label><br/>
+    <input type="radio" id="sas" name="m">
+    <label for="sas">Sasquatch</label>
+</fieldset>
+<hr>
+
+<label for="city">City:</label>
+<select name="city" id="city">
+    <option value="1">Sydney</option>
+    <option value="2">Melbourne</option>
+    <option value="3">Cromwell</option>
+</select>
+
+
+
+</body>
+</html>

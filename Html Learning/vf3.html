@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+  <style>
+    body{
+        box-sizing: border-box;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select,
+    button {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .error-msg {
+      color: red;
+      margin-top: 5px;
+    }
+
+    .success-msg {
+      color: green;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Form Validation Example</h2>
+    <form id="myForm" onsubmit="return validateForm()">
+      <div class="input-group">
+        <input type="text" id="name" placeholder="Name" onchange="validateName()">
+        <div id="name-error" class="error-msg"></div>
+      </div>
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Email" onchange="validateEmail()">
+        <div id="email-error" class="error-msg"></div>
+      </div>
+      <div class="input-group">
+        <input type="radio" id="male" name="gender" value="male" onchange="validateGender()"> Male
+        <input type="radio" id="female" name="gender" value="female" onchange="validateGender()"> Female
+        <div id="gender-error" class="error-msg"></div>
+      </div>
+      <div class="input-group">
+        <input type="checkbox" id="agree" name="agree" onchange="validateAgree()"> I agree to the terms and conditions
+        <div id="agree-error" class="error-msg"></div>
+      </div>
+      <div class="input-group">
+        <textarea id="message" placeholder="Message" onchange="validateMessage()"></textarea>
+        <div id="message-error" class="error-msg"></div>
+      </div>
+      <div class="input-group">
+        <select id="country" onchange="validateCountry()">
+          <option value="">Select Country</option>
+          <option value="USA">USA</option>
+          <option value="UK">UK</option>
+          <option value="Canada">Canada</option>
+        </select>
+        <div id="country-error" class="error-msg"></div>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password" onchange="validatePassword()">
+        <div id="password-error" class="error-msg"></div>
+      </div>
+      <div class="input-group">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" onchange="validateConfirmPassword()">
+        <div id="confirmPassword-error" class="error-msg"></div>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="success-msg" class="success-msg"></div>
+  </div>
+
+  <script>
+    function validateForm(e) {
+        
+      var isValid = true;
+      isValid = validateName() && isValid;
+      isValid = validateEmail() && isValid;
+      isValid = validateGender() && isValid;
+      isValid = validateAgree() && isValid;
+      isValid = validateMessage() && isValid;
+      isValid = validateCountry() && isValid;
+      isValid = validatePassword() && isValid;
+      isValid = validateConfirmPassword() && isValid;
+
+      if (isValid) {
+        var formData = {
+          name: document.getElementById('name').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          gender: document.querySelector('input[name="gender"]:checked').value,
+          agree: document.getElementById('agree').checked,
+          message: document.getElementById('message').value.trim(),
+          country: document.getElementById('country').value,
+          password: document.getElementById('password').value.trim()
+        };
+        const formDataJson = JSON.stringify(formData);
+        alert(formDataJson);
+      }
+
+      return isValid;
+    }
+
+    function validateName() {
+      var name = document.getElementById('name').value.trim();
+      var errorElement = document.getElementById('name-error');
+      errorElement.innerHTML = '';
+      if (name === '') {
+        errorElement.innerHTML = 'Name is required';
+        return false;
+      }
+      return true;
+    }
+
+    function validateEmail() {
+      var email = document.getElementById('email').value.trim();
+      var errorElement = document.getElementById('email-error');
+      errorElement.innerHTML = '';
+      if (email === '') {
+        errorElement.innerHTML = 'Email is required';
+        return false;
+      } else if (!validateEmailFormat(email)) {
+        errorElement.innerHTML = 'Invalid email format';
+        return false;
+      }
+      return true;
+    }
+
+    function validateGender() {
+      var gender = document.querySelector('input[name="gender"]:checked');
+      var errorElement = document.getElementById('gender-error');
+      errorElement.innerHTML = '';
+      if (!gender) {
+        errorElement.innerHTML = 'Gender is required';
+        return false;
+      }
+      return true;
+    }
+
+    function validateAgree() {
+      var agree = document.getElementById('agree').checked;
+      var errorElement = document.getElementById('agree-error');
+      errorElement.innerHTML = '';
+      if (!agree) {
+        errorElement.innerHTML = 'You must agree to the terms and conditions';
+        return false;
+      }
+      return true;
+    }
+
+    function validateMessage() {
+      var message = document.getElementById('message').value.trim();
+      var errorElement = document.getElementById('message-error');
+      errorElement.innerHTML = '';
+      if (message === '') {
+        errorElement.innerHTML = 'Message is required';
+        return false;
+      }
+      return true;
+    }
+
+    function validateCountry() {
+      var country = document.getElementById('country').value;
+      var errorElement = document.getElementById('country-error');
+      errorElement.innerHTML = '';
+      if (country === '') {
+        errorElement.innerHTML = 'Please select a country';
+        return false;
+      }
+      return true;
+    }
+
+    function validatePassword() {
+      var password = document.getElementById('password').value.trim();
+      var errorElement = document.getElementById('password-error');
+      errorElement.innerHTML = '';
+      if (password === '') {
+        errorElement.innerHTML = 'Password is required';
+        return false;
+      }
+      return true;
+    }
+
+    function validateConfirmPassword() {
+      var password = document.getElementById('password').value.trim();
+      var confirmPassword = document.getElementById('confirmPassword').value.trim();
+      var errorElement = document.getElementById('confirmPassword-error');
+      errorElement.innerHTML = '';
+      if (confirmPassword === '') {
+        errorElement.innerHTML = 'Confirm Password is required';
+        return false;
+      } else if (confirmPassword !== password) {
+        errorElement.innerHTML = 'Passwords do not match';
+        return false;
+      }
+      return true;
+    }
+
+    function validateEmailFormat(email) {
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
+    }
+  </script>
+</body>
+</html>

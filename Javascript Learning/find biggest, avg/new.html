@@ -1,0 +1,49 @@
+<html>
+
+<body>
+   <h3>Finding the largest number contained in a JavaScript array</h3>
+   <p>The Dummy array is: [5, 10, 20, 3, 98, 95]</p>
+   <p id="demo"></p>
+   <p id="demo2"></p>
+
+   <script>
+
+      const num =  [5, 10, 20, 3, 98, 95];
+      const result = findbiggest(num)
+      const average = avg(num)
+
+      function findbiggest(arr) {
+         if (arr.length === 0) {
+            return null;
+         }
+         let big = arr[0];
+         for (let i = 0; i < arr.length; i++) {
+            if (arr[i] > big) {
+               big = arr[i];
+            }
+         }
+         return big;
+
+      }
+
+      function avg(arr) {
+         if(arr.length === 0){
+             return null;
+         }
+         let sum = 0;
+         for (let i = 0; i < arr.length; i++) {
+             sum += arr[i]
+         }
+         return sum/arr.length;
+         
+     }
+     
+      
+
+   </script>
+   <button type="button" onclick='document.getElementById("demo").innerHTML = "Hello JavaScript!" +" The biggest number is "+ result'>Biggest</button>
+   <button type="button" onclick='document.getElementById("demo2").innerHTML = "Hello JavaScript!" +" The average is "+ average'>Average</button>
+
+</body>
+
+</html>
